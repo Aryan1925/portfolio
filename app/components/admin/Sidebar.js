@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
 
 import {
   LayoutDashboard,
@@ -24,48 +23,9 @@ export default function Sidebar({
   setMobileOpen,
   isLoggedIn,
   search,
+  unreadCount,
 }) {
   const pathname = usePathname();
-
-  const [unreadCount, setUnreadCount] =
-    useState(0);
-
-  const loadUnreadCount = async () => {
-    try {
-      const res = await fetch(
-        "/api/contact",
-        {
-          cache: "no-store",
-        }
-      );
-
-      const data = await res.json();
-
-      if (data.success) {
-        const unread =
-          data.data.filter(
-            (item) => !item.read
-          ).length;
-
-        setUnreadCount(unread);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  useEffect(() => {
-    if (!isLoggedIn) return;
-
-    loadUnreadCount();
-
-    const interval = setInterval(() => {
-      loadUnreadCount();
-    }, 5000);
-
-    return () =>
-      clearInterval(interval);
-  }, [isLoggedIn]);
 
   const navLinks = [
     {
@@ -132,6 +92,7 @@ export default function Sidebar({
           setMobileOpen(false)
         }
         className={`
+          relative
           group flex items-center justify-between
           px-4 py-3 rounded-2xl
           transition-all duration-300
