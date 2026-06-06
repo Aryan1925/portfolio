@@ -112,7 +112,7 @@ export default function Contacts() {
   // Contact information
   const contactInfo = [
     { icon: <FaEnvelope className="w-5 h-5" />, label: "Email", value: "aryprj2004@gmail.com", link: "mailto:aryan@example.com" },
-    { icon: <FaPhone className="w-5 h-5" />, label: "Phone", value: "+91 12345 67890", link: "tel:+911234567890" },
+    { icon: <FaPhone className="w-5 h-5" />, label: "Phone", value: "+91 93163 69351", link: "tel:+919316369351" },
     { icon: <FaMapMarkerAlt className="w-5 h-5" />, label: "Location", value: "India", link: null },
     { icon: <FaRegClock className="w-5 h-5" />, label: "Response Time", value: "Within 24 hours", link: null },
   ];
