@@ -44,6 +44,16 @@ export default function Experience() {
       "authentication APIs",
       "full-stack development",
       "taxation rules",
+      "Tally",
+      "journal entries",
+      "bank reconciliations",
+      "vendor payments",
+      "financial records",
+      "ledgers",
+      "GST/TDS returns",
+      "audits",
+      "bookkeeping",
+      "record-keeping",
     ];
 
     let highlightedText = text;

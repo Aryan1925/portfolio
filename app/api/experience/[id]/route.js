@@ -15,13 +15,23 @@ export async function DELETE(req, context) {
   }
 }
 
-export async function PUT(req, { params }) {
-  await connectDB();
-  const body = await req.json();
+export async function PUT(req, context) {
+  try {
+    await connectDB();
 
-  const updated = await Experience.findByIdAndUpdate(params.id, body, {
-    new: true,
-  });
+    const { id } = await context.params;
+    const body = await req.json();
 
-  return Response.json({ success: true, data: updated });
+    const updated = await Experience.findByIdAndUpdate(id, body, {
+      returnDocument: "after",
+    });
+
+    if (!updated) {
+      return Response.json({ success: false, message: "Experience not found" });
+    }
+
+    return Response.json({ success: true, data: updated });
+  } catch (error) {
+    return Response.json({ success: false, message: error.message });
+  }
 }
