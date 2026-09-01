@@ -128,13 +128,23 @@ export default function About() {
 
                 <div className="w-28 h-28 rounded-full bg-gradient-to-r from-purple-500 to-blue-500 p-1">
 
-                  <div className="w-full h-full rounded-full bg-gray-900 dark:bg-black flex items-center justify-center">
+                  {about?.image ? (
+                    <div className="w-full h-full rounded-full bg-gray-900 dark:bg-black overflow-hidden">
+                      <img
+                        src={about.image}
+                        alt={about.name || "Profile"}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                  ) : (
+                    <div className="w-full h-full rounded-full bg-gray-900 dark:bg-black flex items-center justify-center">
 
-                    <span className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-blue-400">
-                      {about?.name?.charAt(0) || "A"}
-                    </span>
+                      <span className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-blue-400">
+                        {about?.name?.charAt(0) || "A"}
+                      </span>
 
-                  </div>
+                    </div>
+                  )}
 
                 </div>
 

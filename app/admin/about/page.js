@@ -10,6 +10,9 @@ import {
     Rocket,
     Heart,
     Save,
+    Image as ImageIcon,
+    Loader2,
+    X,
 } from "lucide-react";
 import Swal from "sweetalert2";
 
@@ -27,6 +30,8 @@ export default function AboutAdmin() {
         description2: "",
         description3: "",
         interests: "",
+        image: "",
+        imagePublicId: "",
         updatedAt: "",
     });
 
@@ -57,6 +62,8 @@ const fetchAbout = async () => {
                 description2: data.description2 || "",
                 description3: data.description3 || "",
                 interests: data.interests || "",
+                image: data.image || "",
+                imagePublicId: data.imagePublicId || "",
                 updatedAt: data.updatedAt || "",
             });
 
@@ -73,6 +80,50 @@ const fetchAbout = async () => {
             ...form,
             [e.target.name]: e.target.value,
         });
+    };
+
+    const [uploading, setUploading] = useState(false);
+
+    const handleImageUpload = async (e) => {
+        const file = e.target.files?.[0];
+
+        if (!file) return;
+
+        if (!file.type.startsWith("image/")) {
+            return toast.error("Please upload an image file");
+        }
+
+        const formData = new FormData();
+        formData.append("file", file);
+
+        try {
+            setUploading(true);
+
+            const res = await fetch("/api/about/image", {
+                method: "POST",
+                body: formData,
+            });
+
+            const data = await res.json();
+
+            if (!data.success) {
+                throw new Error(data.message);
+            }
+
+            setForm({
+                ...form,
+                image: data.image,
+                imagePublicId: data.imagePublicId,
+            });
+
+            toast.success("Image uploaded successfully");
+        } catch (error) {
+            console.log(error);
+            toast.error(error.message || "Image upload failed");
+        } finally {
+            setUploading(false);
+            e.target.value = "";
+        }
     };
 
   const handleSubmit = async (e) => {
@@ -189,6 +240,74 @@ const fetchAbout = async () => {
                                         placeholder="Full-Stack Developer"
                                         className="w-full h-14 px-4 rounded-2xl bg-white/5 border border-white/10 outline-none focus:border-cyan-500 transition"
                                     />
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* PROFILE IMAGE */}
+                        <div>
+                            <h2 className="text-xl font-bold mb-6 flex items-center gap-2">
+                                <ImageIcon className="text-cyan-400" />
+                                Profile Image
+                            </h2>
+
+                            <div className="flex flex-col md:flex-row items-center gap-6">
+                                {/* PREVIEW */}
+                                <div className="w-32 h-32 rounded-full bg-gradient-to-r from-purple-500 to-blue-500 p-1 flex-shrink-0">
+                                    <div className="w-full h-full rounded-full bg-gray-900 overflow-hidden">
+                                        {form.image ? (
+                                            <img
+                                                src={form.image}
+                                                alt="Profile preview"
+                                                className="w-full h-full object-cover"
+                                            />
+                                        ) : (
+                                            <div className="w-full h-full flex items-center justify-center">
+                                                <ImageIcon
+                                                    className="w-10 h-10 text-gray-600"
+                                                />
+                                            </div>
+                                        )}
+                                    </div>
+                                </div>
+
+                                {/* CONTROLS */}
+                                <div className="flex flex-col items-center md:items-start gap-3">
+                                    <label className="cursor-pointer inline-flex items-center gap-2 px-5 py-2.5 rounded-2xl bg-gradient-to-r from-purple-500 to-blue-500 text-white text-sm font-medium hover:opacity-90 transition">
+                                        {uploading ? (
+                                            <Loader2 size={16} className="animate-spin" />
+                                        ) : (
+                                            <ImageIcon size={16} />
+                                        )}
+                                        {uploading ? "Uploading..." : "Upload Image"}
+                                        <input
+                                            type="file"
+                                            accept="image/*"
+                                            onChange={handleImageUpload}
+                                            className="hidden"
+                                        />
+                                    </label>
+
+                                    {form.image && (
+                                        <button
+                                            type="button"
+                                            onClick={() =>
+                                                setForm({
+                                                    ...form,
+                                                    image: "",
+                                                    imagePublicId: "",
+                                                })
+                                            }
+                                            className="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-red-500/30 text-red-400 text-sm hover:bg-red-500/10 transition"
+                                        >
+                                            <X size={14} />
+                                            Remove Image
+                                        </button>
+                                    )}
+
+                                    <p className="text-gray-500 text-sm text-center md:text-left">
+                                        JPG, PNG, or WebP under 2MB
+                                    </p>
                                 </div>
                             </div>
                         </div>

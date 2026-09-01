@@ -4,6 +4,8 @@ import { connectDB } from "@/lib/mongodb";
 
 import About from "@/models/About";
 
+import cloudinary from "@/lib/cloudinary";
+
 // GET ABOUT 
 export async function GET() {
   try {
@@ -36,6 +38,18 @@ export async function POST(req) {
 
     // UPDATE EXISTING
     if (existingAbout) {
+      // DELETE OLD IMAGE FROM CLOUDINARY WHEN REPLACED
+      if (
+        body.image &&
+        body.imagePublicId &&
+        existingAbout.imagePublicId &&
+        body.imagePublicId !== existingAbout.imagePublicId
+      ) {
+        await cloudinary.uploader.destroy(existingAbout.imagePublicId, {
+          resource_type: "image",
+        });
+      }
+
       const updatedAbout = await About.findByIdAndUpdate(
         existingAbout._id,
         body,

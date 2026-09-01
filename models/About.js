@@ -41,6 +41,14 @@ const AboutSchema = new mongoose.Schema(
     interests: {
       type: String,
     },
+
+    image: {
+      type: String,
+    },
+
+    imagePublicId: {
+      type: String,
+    },
   },
   {
     timestamps: true,
