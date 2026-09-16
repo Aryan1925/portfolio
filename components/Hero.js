@@ -51,6 +51,11 @@ export default function Hero() {
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-blue-500 animate-pulse">
             |
           </span>
+          {/* Static keyword text — visible to search engines & screen readers
+              while the typewriter runs for human visitors */}
+          <span className="sr-only">
+            Full-Stack Developer specializing in React.js, Next.js, Node.js, MongoDB, and MERN stack development.
+          </span>
         </motion.h1>
 
         {/* Description */}

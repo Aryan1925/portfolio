@@ -29,8 +29,9 @@ export default function Footer() {
           </a>
 
           <a
-            href="mailto:yourmail@gmail.com"
+            href="mailto:aryprj2004@gmail.com"
             className="hover:text-blue-500 transition"
+            aria-label="Email Aryan Prajapati"
           >
             <FaEnvelope />
           </a>

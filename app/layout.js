@@ -1,5 +1,7 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import { Toaster } from "react-hot-toast";
+import IntroLoader from "@/components/IntroLoaderClient";
+import { siteConfig, buildPersonJsonLd, buildWebsiteJsonLd } from "@/lib/site";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -13,11 +15,64 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "Aryan Portfolio",
-  description: "Full-Stack Developer Portfolio",
+  metadataBase: new URL(siteConfig.url),
+  title: {
+    default: siteConfig.title,
+    template: `%s | ${siteConfig.nameShort} — ${siteConfig.role}`,
+  },
+  description: siteConfig.description,
+  applicationName: `${siteConfig.name} Portfolio`,
+  keywords: siteConfig.keywords,
+  authors: [{ name: siteConfig.name, url: siteConfig.url }],
+  creator: siteConfig.name,
+  publisher: siteConfig.name,
+  manifest: "/manifest.webmanifest",
+  icons: {
+    icon: "/icon",
+    apple: "/apple-icon",
+  },
+  openGraph: {
+    type: "website",
+    locale: "en_IN",
+    url: siteConfig.url,
+    siteName: `${siteConfig.name} Portfolio`,
+    title: siteConfig.title,
+    description: siteConfig.description,
+    images: [
+      {
+        url: siteConfig.image,
+        width: 1122,
+        height: 1182,
+        alt: siteConfig.imageAlt,
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: siteConfig.title,
+    description: siteConfig.description,
+    images: [siteConfig.image],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  alternates: {
+    canonical: siteConfig.url,
+  },
+  category: "technology",
 };
 
 export default function RootLayout({ children }) {
+  const jsonLd = [buildPersonJsonLd(), buildWebsiteJsonLd()];
+
   return (
     <html
       lang="en"
@@ -42,6 +97,12 @@ export default function RootLayout({ children }) {
                 } catch (e) {}
               })();
             `,
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
           }}
         />
       </head>
@@ -83,6 +144,11 @@ export default function RootLayout({ children }) {
   />
 </div>
         {children}
+
+        {/* Static splash — always in server HTML so the Hero never flashes */}
+        <div id="init-splash" className="fixed inset-0 z-[999] bg-black pointer-events-none" />
+
+        <IntroLoader />
         <Toaster
           position="top-right"
           toastOptions={{

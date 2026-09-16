@@ -1,7 +1,9 @@
 "use client";
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import { motion } from "framer-motion";
 import { FiGithub } from "react-icons/fi";
+import { FiArrowUpRight } from "react-icons/fi";
 
 export default function Projects() {
   const [projects, setProjects] = useState([]);
@@ -95,10 +97,14 @@ export default function Projects() {
               </div>
 
               {/* Project Title */}
-              <h3 className="text-2xl font-bold bg-gradient-to-r from-gray-900 to-gray-600 
-                             dark:from-white dark:to-gray-400 bg-clip-text text-transparent">
-                {project.title}
-              </h3>
+              <Link href={`/projects/${project._id}`}>
+                <h3 className="text-2xl font-bold bg-gradient-to-r from-gray-900 to-gray-600 
+                               dark:from-white dark:to-gray-400 bg-clip-text text-transparent
+                               hover:from-purple-500 hover:to-blue-500
+                               dark:hover:from-purple-400 dark:hover:to-blue-400 transition-all">
+                  {project.title}
+                </h3>
+              </Link>
 
               {/* Description */}
               <div
@@ -125,12 +131,10 @@ export default function Projects() {
                 ))}
               </div>
 
-              {/* Links - Only GitHub Button */}
+              {/* Links */}
               <div className="flex gap-3 mt-8">
-                <a
-                  href={project.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <Link
+                  href={`/projects/${project._id}`}
                   className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-medium
                              bg-gradient-to-r from-purple-600 to-blue-600 
                              hover:from-purple-700 hover:to-blue-700
@@ -138,9 +142,24 @@ export default function Projects() {
                              hover:shadow-xl hover:shadow-purple-500/40
                              hover:scale-105 transition-all duration-300"
                 >
+                  View Details
+                  <FiArrowUpRight className="w-4 h-4" />
+                </Link>
+                {project.github && (
+                <a
+                  href={project.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-medium
+                             border border-gray-200 dark:border-gray-800
+                             bg-gray-50 dark:bg-white/5
+                             hover:bg-gray-100 dark:hover:bg-white/10
+                             hover:scale-105 transition-all duration-300"
+                >
                   <FiGithub className="w-4 h-4" />
                   View Code
                 </a>
+                )}
               </div>
             </div>
           </motion.div>

@@ -48,6 +48,13 @@ export default function About() {
     ? about.interests.split(",")
     : [];
 
+  const cloudinaryImage = (src, transform) => {
+    if (!src || !src.includes("/upload/")) return src;
+    const marker = "/upload/";
+    const i = src.indexOf(marker) + marker.length;
+    return `${src.slice(0, i)}${transform}/${src.slice(i)}`;
+  };
+
   return (
     <section
       id="about"
@@ -131,8 +138,14 @@ export default function About() {
                   {about?.image ? (
                     <div className="w-full h-full rounded-full bg-gray-900 dark:bg-black overflow-hidden">
                       <img
-                        src={about.image}
+                        src={cloudinaryImage(about.image, "f_auto,q_auto,w_300")}
+                        srcSet={`${cloudinaryImage(about.image, "f_auto,q_auto,w_150")} 1x, ${cloudinaryImage(about.image, "f_auto,q_auto,w_300")} 2x, ${cloudinaryImage(about.image, "f_auto,q_auto,w_450")} 3x`}
+                        sizes="112px"
                         alt={about.name || "Profile"}
+                        width={112}
+                        height={112}
+                        loading="lazy"
+                        decoding="async"
                         className="w-full h-full object-cover"
                       />
                     </div>
