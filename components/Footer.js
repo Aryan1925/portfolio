@@ -40,12 +40,13 @@ export default function Footer() {
 
         {/* Text */}
         <p className="text-gray-600 dark:text-gray-400 text-sm">
-          © 2026 Aryan • Built with Next.js
+          © 2026 Aryan Prajapati • Full-Stack Developer Portfolio
         </p>
 
         {/* Sub text */}
         <p className="text-xs text-gray-400 dark:text-gray-500 mt-2">
-          Designed and Developed with attention to detail, creativity, and passion for building impactful digital experiences 🚀
+          Aryan Prajapati is a full-stack developer building impactful digital
+          experiences with React.js, Next.js, Node.js, and MongoDB.
         </p>
 
       </div>

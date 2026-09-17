@@ -7,21 +7,7 @@ import Experience from "@/components/Experience";
 import Resume from "@/components/Resume";
 import Footer from "@/components/Footer";
 import Contacts from "@/components/Contacts";
-import { siteConfig, buildProfilePageJsonLd } from "@/lib/site";
-
-export const metadata = {
-  title: siteConfig.title,
-  description: siteConfig.description,
-  alternates: {
-    canonical: siteConfig.url,
-  },
-  openGraph: {
-    title: siteConfig.title,
-    description: siteConfig.description,
-    url: siteConfig.url,
-    type: "website",
-  },
-};
+import { buildProfilePageJsonLd } from "@/lib/site";
 
 export default function Home() {
   return (

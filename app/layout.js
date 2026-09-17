@@ -67,6 +67,9 @@ export const metadata = {
   alternates: {
     canonical: siteConfig.url,
   },
+  verification: {
+    google: "ESNsd5DkfwK0Fm7vNKRrocOBDkM8-XlOlEaiWA2dok4",
+  },
   category: "technology",
 };
 

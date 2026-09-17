@@ -43,18 +43,21 @@ export default function Hero() {
           transition={{ duration: 0.8 }}
           className="text-4xl md:text-6xl font-bold mt-4 leading-tight"
         >
-          Creating Elegant Interfaces
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-blue-500">
-            {" "}
+          Aryan Prajapati
+          <span className="block text-2xl md:text-3xl mt-3 text-gray-700 dark:text-gray-300">
+            Full-Stack Developer
+          </span>
+          <span className="block text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-blue-500 text-xl md:text-2xl mt-2">
             {typed}
           </span>
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-blue-500 animate-pulse">
+          {/* <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-blue-500 animate-pulse">
             |
-          </span>
+          </span> */}
           {/* Static keyword text — visible to search engines & screen readers
               while the typewriter runs for human visitors */}
           <span className="sr-only">
-            Full-Stack Developer specializing in React.js, Next.js, Node.js, MongoDB, and MERN stack development.
+            Aryan Prajapati full stack portfolio — Full-Stack Developer portfolio
+            featuring React.js, Next.js, Node.js, MongoDB, and MERN stack projects.
           </span>
         </motion.h1>
 
@@ -65,8 +68,9 @@ export default function Hero() {
           transition={{ duration: 1 }}
           className="mt-6 text-lg text-gray-600 dark:text-gray-300"
         >
-          I’m Aryan, a developer who loves crafting clean UI, smooth animations,
-          and scalable web applications.
+          I’m Aryan Prajapati, a full-stack developer who loves crafting clean UI,
+          smooth animations, and scalable web applications. This is my full stack
+          developer portfolio featuring my best React.js, Next.js, and MongoDB projects.
         </motion.p>
 
         {/* Buttons */}
